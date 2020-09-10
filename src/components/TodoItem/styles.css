@@ -88,3 +88,7 @@
 .todo-item .remove:hover svg path {
     fill: #d34242 !important;
 }
+
+ul {
+    list-style: none;
+}

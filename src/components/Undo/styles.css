@@ -1,0 +1,25 @@
+@keyframes undo-show {
+    0% {
+        right: -20px;
+        opacity: 0;
+    }
+}
+
+.undo {
+    position: relative;
+}
+
+.undo button {
+    position: absolute;
+    right: 0;
+    padding: 3px 15px 5px;
+    background-color: var(--primary);
+    color: #fff;
+    border-bottom-left-radius: 15px;
+    font-weight: bold;
+    animation: undo-show .3s ease-out;
+
+    cursor: pointer;
+    border: none;
+    outline: none;
+}

@@ -2,17 +2,20 @@ import React from "react";
 import "./styles.css";
 
 import TodoList from './../TodoList';
+import Undo from './../Undo';
 
 class Main extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = { 
-            todos: []
+            todos: [],
+            undo: undefined
         };
 
         this.handleTodoChange = this.handleTodoChange.bind(this);
         this.handleTodoRemove = this.handleTodoRemove.bind(this);
+        this.handleUndoTodoRemove = this.handleUndoTodoRemove.bind(this);
     }
 
     componentDidMount() {
@@ -34,7 +37,7 @@ class Main extends React.Component {
 
             if (newTodo) {
                 todos.push({ name: newTodo, checked: false, completed: false });
-                this.setState({ todos });
+                this.setState({ todos, undo: undefined });
                 
                 e.target.value = '';
             }
@@ -45,18 +48,26 @@ class Main extends React.Component {
         const { todos } = this.state;
 
         todos[index] = todo;
-        this.setState({ todos, });
+        this.setState({ todos, undo: undefined });
     }
     
     handleTodoRemove(index) {
         const { todos } = this.state;
+        const undo = todos[index];
 
         todos.splice(index, 1);
-        this.setState({ todos, });
+        this.setState({ todos, undo, });
+    }
+
+    handleUndoTodoRemove() {
+        const { todos, undo } = this.state;
+        
+        todos.push(undo);
+        this.setState({ todos, undo: undefined });
     }
 
     render() {
-        const { todos } = this.state;
+        const { todos, undo } = this.state;
 
         return (
             <div className="main">
@@ -71,18 +82,26 @@ class Main extends React.Component {
                             onKeyDown={(e) => { this.handleAddTodo(e) }}
                         />
 
-                        <TodoList
-                            checked={false} 
-                            todos={todos} 
-                            handleTodoChange={this.handleTodoChange}
-                            handleTodoRemove={this.handleTodoRemove}
-                        />
                         
-                        <TodoList
-                            checked={true}
-                            todos={todos} 
-                            handleTodoChange={this.handleTodoChange}
-                            handleTodoRemove={this.handleTodoRemove}
+                        <ul>
+                            <TodoList
+                                checked={false} 
+                                todos={todos} 
+                                handleTodoChange={this.handleTodoChange}
+                                handleTodoRemove={this.handleTodoRemove}
+                            />
+                            
+                            <TodoList
+                                checked={true}
+                                todos={todos} 
+                                handleTodoChange={this.handleTodoChange}
+                                handleTodoRemove={this.handleTodoRemove}
+                            />
+                        </ul>
+
+                        <Undo 
+                            undo={undo}
+                            handleUndoTodoRemove={this.handleUndoTodoRemove}
                         />
                     </div>
                 </div>

@@ -8,7 +8,7 @@ class TodoList extends React.Component {
         const { checked, todos, handleTodoChange, handleTodoRemove } = this.props;
 
         return (
-            <ul>
+            <>
                 {todos.map((todo, index) => (
                     todo.checked === checked &&
                     
@@ -20,7 +20,7 @@ class TodoList extends React.Component {
                         handleTodoRemove={handleTodoRemove}
                     />
                 ))}
-            </ul>
+            </>
         );
     }
 }
