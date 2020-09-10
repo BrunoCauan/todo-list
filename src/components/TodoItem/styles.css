@@ -2,6 +2,21 @@
     position: relative;
 }
 
+.todo-item::before {
+    content: '';
+    height: 1px;
+    width: 95%;
+    position: absolute;
+    top: 0;
+    right: 2.5%;
+    background-color: var(--background-secondary);
+}
+
+.todo-item:first-child::before {
+    width: 100%;
+    right: 0;
+}
+
 .todo-item .input {
     display: flex;
     align-items: center;
