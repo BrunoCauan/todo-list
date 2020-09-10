@@ -7,13 +7,13 @@ import { ReactComponent as Checked } from './../../assets/checked.svg';
 class TodoItem extends React.Component {
     handleNameChange(e) {
         const { index, todo, handleTodoChange } = this.props,
-            newValue = e.target.value.trim();
+            newValue = e.target.textContent.trim();
 
         if (newValue) {
             todo.name = newValue;
             handleTodoChange(todo, index);
         } else {
-            e.target.value = todo.name;
+            e.target.textContent = todo.name;
         }
     }
     
@@ -49,14 +49,15 @@ class TodoItem extends React.Component {
                     <Checked />
                 </button>
                 
-                <input
+                <span
                     className="input"
-                    defaultValue={todo.name}
+                    contentEditable={!todo.checked}
                     suppressContentEditableWarning={true}
                     onBlur={(e) => this.handleNameChange(e)}
                     onKeyDown={(e) => this.triggerBlur(e)}
                 >
-                </input>
+                    {todo.name}
+                </span>
                 
                 <button 
                     className="remove"

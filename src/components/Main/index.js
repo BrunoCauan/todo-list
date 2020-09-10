@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles.css";
 
-import TodoItem from './../TodoItem';
+import TodoList from './../TodoList';
 
 class Main extends React.Component {
     constructor(props) {
@@ -71,17 +71,19 @@ class Main extends React.Component {
                             onKeyDown={(e) => { this.handleAddTodo(e) }}
                         />
 
-                        <ul>
-                            {todos.map((todo, index) => (
-                                <TodoItem 
-                                    key={index} 
-                                    index={index} 
-                                    todo={todo} 
-                                    handleTodoChange={this.handleTodoChange}
-                                    handleTodoRemove={this.handleTodoRemove}
-                                />
-                            ))}
-                        </ul>
+                        <TodoList
+                            checked={false} 
+                            todos={todos} 
+                            handleTodoChange={this.handleTodoChange}
+                            handleTodoRemove={this.handleTodoRemove}
+                        />
+                        
+                        <TodoList
+                            checked={true}
+                            todos={todos} 
+                            handleTodoChange={this.handleTodoChange}
+                            handleTodoRemove={this.handleTodoRemove}
+                        />
                     </div>
                 </div>
             </div>
