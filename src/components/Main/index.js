@@ -28,20 +28,16 @@ class Main extends React.Component {
     }
 
     handleAddTodo(e) {
-        const { todos } = this.state,
-            newTodo = e.target.value.trim();
-
-        if (newTodo) {
-            todos.push({ name: newTodo, checked: false, completed: false });
-            this.setState({ todos });
-            
-            e.target.value = '';
-        }
-    }
-
-    triggerBlur(e) {
         if (e.key === "Enter") {
-            e.target.blur();
+            const { todos } = this.state,
+                newTodo = e.target.value.trim();
+
+            if (newTodo) {
+                todos.push({ name: newTodo, checked: false, completed: false });
+                this.setState({ todos });
+                
+                e.target.value = '';
+            }
         }
     }
 
@@ -72,8 +68,7 @@ class Main extends React.Component {
                             className="input"
                             type="text"
                             placeholder="What needs to be done?"
-                            onBlur={(e) => { this.handleAddTodo(e) }}
-                            onKeyDown={(e) => { this.triggerBlur(e) }}
+                            onKeyDown={(e) => { this.handleAddTodo(e) }}
                         />
 
                         <ul>
@@ -82,7 +77,6 @@ class Main extends React.Component {
                                     key={index} 
                                     index={index} 
                                     todo={todo} 
-                                    triggerBlur={this.triggerBlur}
                                     handleTodoChange={this.handleTodoChange}
                                     handleTodoRemove={this.handleTodoRemove}
                                 />

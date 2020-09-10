@@ -7,13 +7,13 @@ import { ReactComponent as Checked } from './../../assets/checked.svg';
 class TodoItem extends React.Component {
     handleNameChange(e) {
         const { index, todo, handleTodoChange } = this.props,
-            newValue = e.target.textContent.trim();
+            newValue = e.target.value.trim();
 
         if (newValue) {
             todo.name = newValue;
             handleTodoChange(todo, index);
         } else {
-            e.target.textContent = todo.name;
+            e.target.value = todo.name;
         }
     }
     
@@ -29,9 +29,15 @@ class TodoItem extends React.Component {
 
         handleTodoRemove(index);
     }
+
+    triggerBlur(e) {
+        if (e.key === "Enter") {
+            e.target.blur();
+        }
+    }
     
     render() {
-        const { todo, triggerBlur } = this.props;
+        const { todo } = this.props;
 
         return (
             <li className="todo-item">
@@ -43,15 +49,14 @@ class TodoItem extends React.Component {
                     <Checked />
                 </button>
                 
-                <span
+                <input
                     className="input"
-                    contentEditable={!todo.checked}
+                    defaultValue={todo.name}
                     suppressContentEditableWarning={true}
                     onBlur={(e) => this.handleNameChange(e)}
-                    onKeyDown={(e) => triggerBlur(e)}
+                    onKeyDown={(e) => this.triggerBlur(e)}
                 >
-                    {todo.name}
-                </span>
+                </input>
                 
                 <button 
                     className="remove"
