@@ -5,11 +5,11 @@ import TodoItem from './../TodoItem';
 
 class TodoList extends React.Component {
     render() {
-        const { checked, todos, handleTodoChange, handleTodoRemove } = this.props;
+        const { show, checked, todos, handleTodoChange, handleTodoRemove } = this.props;
 
         return (
             <>
-                {todos.map((todo, index) => (
+                {show && todos.map((todo, index) => (
                     todo.checked === checked &&
                     
                     <TodoItem 

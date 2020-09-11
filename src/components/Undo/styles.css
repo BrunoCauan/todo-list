@@ -23,3 +23,7 @@
     border: none;
     outline: none;
 }
+
+.undo button:hover {
+    background-color: var(--primary-hover);
+}

@@ -32,5 +32,27 @@
 .card > .input {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    margin-top: 5px;
+}
+
+.clear-completed {
+    margin-bottom: 8px;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 3px 0;
+    background-color: #29292e;
+    color: #fff;
+    border-radius: 3px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.btn:hover {
+    background-color: #323238;
 }

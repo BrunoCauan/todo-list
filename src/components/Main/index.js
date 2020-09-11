@@ -2,6 +2,7 @@ import React from "react";
 import "./styles.css";
 
 import TodoList from './../TodoList';
+import ToggleList from './../ToggleList';
 import Undo from './../Undo';
 
 class Main extends React.Component {
@@ -10,11 +11,13 @@ class Main extends React.Component {
 
         this.state = { 
             todos: [],
+            show: { active: true, completed: true },
             undo: undefined
         };
 
         this.handleTodoChange = this.handleTodoChange.bind(this);
         this.handleTodoRemove = this.handleTodoRemove.bind(this);
+        this.handleToggleList = this.handleToggleList.bind(this);
         this.handleUndoTodoRemove = this.handleUndoTodoRemove.bind(this);
     }
 
@@ -59,6 +62,10 @@ class Main extends React.Component {
         this.setState({ todos, undo, });
     }
 
+    handleToggleList(showActive, showCompleted) {
+        this.setState({ show: { active: showActive, completed: showCompleted } });
+    }
+
     handleUndoTodoRemove() {
         const { todos, undo } = this.state;
         
@@ -66,8 +73,14 @@ class Main extends React.Component {
         this.setState({ todos, undo: undefined });
     }
 
+    handleClearCompleted() {
+        const { todos } = this.state;
+
+        this.setState({ todos: todos.filter(todo => !todo.checked) });
+    }
+
     render() {
-        const { todos, undo } = this.state;
+        const { todos, undo, show } = this.state;
 
         return (
             <div className="main">
@@ -81,10 +94,10 @@ class Main extends React.Component {
                             placeholder="What needs to be done?"
                             onKeyDown={(e) => { this.handleAddTodo(e) }}
                         />
-
                         
                         <ul>
                             <TodoList
+                                show={show.active}
                                 checked={false} 
                                 todos={todos} 
                                 handleTodoChange={this.handleTodoChange}
@@ -92,12 +105,19 @@ class Main extends React.Component {
                             />
                             
                             <TodoList
+                                show={show.completed}
                                 checked={true}
                                 todos={todos} 
                                 handleTodoChange={this.handleTodoChange}
                                 handleTodoRemove={this.handleTodoRemove}
                             />
                         </ul>
+
+                        <ToggleList handleToggleList={this.handleToggleList}/>
+
+                        <div className="clear-completed">
+                            <button className="btn" onClick={() => this.handleClearCompleted()}>Clear Completed</button>
+                        </div>
 
                         <Undo 
                             undo={undo}
